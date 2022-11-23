@@ -1,0 +1,11 @@
+def range(start, last)
+    return [last] if last == start
+    return [] if last < start
+    result = []
+    result += range(start, last-1)
+
+
+end
+
+range(1,1)
+range(1,5)
