@@ -43,27 +43,27 @@ recursion_2(10, 3)
 
 
 
-# class Array
-#     def deep_dup
-#         return [self] if !self.is_a?(Array)
-#         self.map do |ele|
-#             ele.deep_dup
-#         end
-#     end   
-# end
+class Array
+    def deep_dup
+        return [self] if !self.is_a?(Array)
+        self.map do |ele|
+            ele.deep_dup
+        end
+    end   
+end
 
 
-# robot_parts = [
-#   ["nuts", "bolts", "washers"],
-#   ["capacitors", "resistors", "inductors"]
-# ]
+robot_parts = [
+  ["nuts", "bolts", "washers"],
+  ["capacitors", "resistors", "inductors"]
+]
 
-# robot_parts_copy = robot_parts.deep_dup
+robot_parts_copy = robot_parts.deep_dup
 
-# # shouldn't modify robot_parts
-# p robot_parts_copy[1] << "LEDs"
-# # but it does
-# p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
+# shouldn't modify robot_parts
+p robot_parts_copy[1] << "LEDs"
+# but it does
+p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
 
 
 def fibonacci_array(n)
@@ -104,3 +104,48 @@ p bsearch([1, 3, 4, 5, 9], 5) # => 3
 p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
 p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
 p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
+
+def merge_sort(array)
+    
+    return array if array.length < 2
+
+    mid = array.length / 2
+    
+    left = merge_sort(array[0...mid])
+    right = merge_sort(array[mid..-1])
+
+    merge(left, right)
+
+end
+
+def merge(left, right)
+    merge = []
+    while left.length > 0 && right.length > 0
+        if left[0] < right[0]
+            merge << left.shift
+        else
+            merge << right.shift
+        end
+    end
+    merge.concat(left, right)
+end
+array = (1..20).to_a.shuffle
+merge_sort(array)
+
+
+def subsets(array)
+    return [[]] if array.empty?
+    return [[], array] if array.length == 1
+    landing_pad = subsets(array[0...-1])
+    array.each {|ele| landing_pad << subsets([ele])}
+    landing_pad
+end
+
+
+
+# subsets([]) # => [[]]
+# subsets([1]) # => [[], [1]]
+subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+# subsets([1, 2, 3])
+# # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
