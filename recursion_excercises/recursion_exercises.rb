@@ -39,3 +39,33 @@ def recursion_2(b, n)
 end
 
 recursion_2(10, 3)
+
+
+
+class Array
+    def deep_dup
+        return [self] if !self.is_a?(Array)
+        self.map do |ele|
+            ele.deep_dup
+        end
+    end   
+end
+
+
+robot_parts = [
+  ["nuts", "bolts", "washers"],
+  ["capacitors", "resistors", "inductors"]
+]
+
+robot_parts_copy = robot_parts.deep_dup
+
+# shouldn't modify robot_parts
+p robot_parts_copy[1] << "LEDs"
+# but it does
+p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
+
+
+def fibonacci_array(n)
+    return [1, 1].take(n) if n <= 2
+
+end
