@@ -137,8 +137,6 @@ require 'pry-byebug'
 #TODO: Get back to it
 def subsets(array)
     return [[]] if array.empty?
-    # return [[], array] if array.length == 1
-    binding.pry
     landing_pad = subsets(array[0...-1])
     landing_pad += landing_pad.map { |ele| ele + [array[-1]]}
 end
@@ -150,3 +148,5 @@ end
 # p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
 p subsets([1, 2, 3])
 # # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+
+
